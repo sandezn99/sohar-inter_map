@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>الخريطة التفاعلية لمهرجان صحار</title>
+  <style>
+    body { font-family: Arial; direction: rtl; background: #f0f0f0; }
+    #map-container { position: relative; width: 100%; max-width: 1400px; margin: auto; }
+    #map-image { width: 100%; display: block; }
+    .point {
+      position: absolute;
+      width: 28px; height: 28px;
+      background: #ff5722; color: white;
+      border-radius: 50%; text-align: center; line-height: 28px;
+      cursor: pointer; font-weight: bold;
+      box-shadow: 0 0 5px #333;
+    }
+    #info-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: white;
+      border: 1px solid #ccc;
+      max-width: 800px;
+      margin-right: auto; margin-left: auto;
+    }
+  </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">خريطة مهرجان صحار – النسخة الرابعة</h2>
+
+<div id="map-container">
+  <img id="map-image" src="./map.jpeg" alt="خريطة المهرجان">
+
+  <!-- نقاط تفاعلية -->
+<div class="point" style="top: 77%; left: 32%;" onclick="showInfo(1)">1</div>
+<div class="point" style="top: 83%; left: 38%;" onclick="showInfo(2)">2</div>
+<div class="point" style="top: 82%; left: 45%;" onclick="showInfo(3)">3</div>
+<div class="point" style="top: 60%; left: 54%;" onclick="showInfo(4)">4</div>
+<div class="point" style="top: 32%; left: 65%;" onclick="showInfo(5)">5</div>
+<div class="point" style="top: 39%; left: 73%;" onclick="showInfo(6)">6</div>
+<div class="point" style="top: 78%; left: 42%;" onclick="showInfo(7)">7</div>
+<div class="point" style="top: 22%; left: 65%;" onclick="showInfo(8)">8</div>
+<div class="point" style="top: 50%; left: 34%;" onclick="showInfo(9)">9</div>
+<div class="point" style="top: 76%; left: 47%;" onclick="showInfo(10)">10</div>
+<div class="point" style="top: 73%; left: 49%;" onclick="showInfo(11)">11</div>
+<div class="point" style="top: 66%; left: 35%;" onclick="showInfo(12)">12</div>
+<div class="point" style="top: 33%; left: 80%;" onclick="showInfo(13)">13</div>
+<div class="point" style="top: 67%; left: 43%;" onclick="showInfo(14)">14</div>
+<div class="point" style="top: 60%; left: 38%;" onclick="showInfo(15)">15</div>
+<div class="point" style="top: 13%; left: 34%;" onclick="showInfo(16)">16</div>
+<div class="point" style="top: 18%; left: 18%;" onclick="showInfo(17)">17</div>
+<div class="point" style="top: 18%; left: 8%;" onclick="showInfo(18)">18</div>
+<div class="point" style="top: 30%; left: 16%;" onclick="showInfo(19)">19</div>
+<div class="point" style="top: 42%; left: 76%;" onclick="showInfo(20)">20</div>
+<div class="point" style="top: 45%; left: 35%;" onclick="showInfo(21)">21</div>
+<div class="point" style="top: 87%; left: 48%;" onclick="showInfo(22)">22</div>
+<div class="point" style="top: 12%; left: 12%;" onclick="showInfo(23)">23</div>
+
+</div>
+
+<div id="info-box">اضغط على رقم في الخريطة لعرض المعلومات.</div>
+
+<script>
+  const info = {
+    1: "شاشة تفاعلية في بداية المدخل للمهرجان، تعرض خريطة وتواريخ الفعاليات.",
+    2: "حديقة ألعاب آمنة للأطفال دون سن الخامسة لتحفيز المهارات الحسية.",
+    3: "جلسات عائلية مؤجرة مريحة ومظللة لتعزيز الخصوصية والراحة.",
+    4: "القرية المضيئة بممرات LED ساحرة وتجربة بصرية ليلية.",
+    5: "قرية السنافر التفاعلية المليئة بالألعاب المستوحاة من الشخصيات الكرتونية.",
+    6: "موقع الخدمات الصحية (عيادة إسعافات أولية).",
+    7: "ملعب شاطئ رملي للأطفال مليء بالأنشطة الحركية.",
+    8: "أكشاك المأكولات البحرية بطابع محلي.",
+    9: "منطقة المشاريع الصغيرة والمتوسطة لدعم الاقتصاد المحلي.",
+    10: "استوديو المهرجان لتوثيق اللحظات بالتصوير.",
+    11: "شاشة تفاعلية لطلبات الطعام باستخدام الباركود.",
+    12: "أكشاك الأسر المنتجة لعرض مأكولات وحرف يدوية.",
+    13: "ورشة الفن التشكيلي وتلوين مجسمات حيوانات عمانية.",
+    14: "بيئات تفاعلية ثلاثية الأبعاد (جبلية، بحرية...) بتقنية الواقع المعزز.",
+    15: "ممر مضيء موسيقي يتفاعل مع حركة الأقدام.",
+    16: "حديقة المتاهة الآمنة والممتعة للأطفال.",
+    17: "حلبة سباق سيارات كهربائية للأطفال.",
+    18: "مدينة الألعاب الإلكترونية وألعاب الواقع الافتراضي.",
+    19: "بوليفارد صحار مع أكشاك وأجواء موسيقية عالمية.",
+    20: "ركن صوتك موهبة – مواهب الأطفال الصوتية.",
+    21: "جدارية الزوار – عبارات في حب عمان ومهرجان صحار.",
+    22: "موقع تأجير العربات لكبار السن وذوي الإعاقة.",
+    23: "ركن ابتكارات شباب شمال الباطنة."
+  };
+
+  function showInfo(num) {
+    document.getElementById('info-box').innerText = info[num];
+  }
+</script>
+
+</body>
+</html>
